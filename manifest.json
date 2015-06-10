@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "HBO Now New Releases",
+  "description": "This extension helps you discover when new movies are released on HBO Now.",
+  "version": "1.0",
+  "background": {
+    "scripts": ["watch_for_hbo_now.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_icon": "icon-clock.png",
+    "default_title" : "There's a 'G' in this URL!"
+  },
+  "permissions": [
+    "declarativeContent"
+  ]
+}
