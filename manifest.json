@@ -10,7 +10,7 @@
   },
   "page_action": {
     "default_icon": "icon-clock.png",
-    "default_title" : "There's a 'G' in this URL!"
+    "default_title" : "See HBO Now New Releases"
   },
   "permissions": [
     "declarativeContent"
