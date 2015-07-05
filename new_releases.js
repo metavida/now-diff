@@ -56,6 +56,11 @@
   // Iterate over the current list of titles.
   // If the title was available last week, hide it.
   var showNewTitles = function() {
+    if(alreadyNewFiltered()) {
+      console.log('already filtered. Not hiding anything else.');
+      return;
+    }
+
     console.log('hiding all old movies');
     var title_els = titleEls(),
       current_titles = {},
@@ -72,6 +77,32 @@
           list_el.style.display = 'none';
       }
     }
+
+    addNewLabelEl();
+  };
+
+  var alreadyNewFiltered = function() {
+    return document.querySelector('.filters .new') !== null;
+  };
+
+  var addNewLabelEl = function() {
+    var selected_filter_el = document.querySelector('.filters .selected'),
+      new_el = document.createElement('span');
+    new_el.className = 'new';
+    new_el.style.fontSize = '0.7em';
+    new_el.style.display = 'inline-block';
+    new_el.style.width = '0px';
+    new_el.style.paddingLeft = '6px';
+    new_el.style.marginRight = '-6px';
+    new_el.innerHTML = "(New)";
+
+    selected_filter_el.appendChild(new_el);
+  };
+
+  var removeNewLabelEl = function() {
+    console.log('running removeNewLabelEl');
+    var new_el = document.querySelector('.filters .new');
+    if(new_el) new_el.remove();
   };
 
   // Save the current list of titles to localStorage.
@@ -116,6 +147,15 @@
   );
 
   setTimeout(updateThisWeekTitles, 1000);
+  setTimeout(function() {
+    var filter_els = document.querySelectorAll('.filters a'),
+      filter_el;
+    for (var i = filter_els.length - 1; i >= 0; i--) {
+      filter_el = filter_els[i];
+      console.log('added click listener to '+filter_el);
+      filter_el.addEventListener('click', removeNewLabelEl);
+    }
+  }, 1100);
   //setTimeout(setRandomLastWeek, 2000);
 
 })();
