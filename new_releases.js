@@ -56,6 +56,7 @@
   // Iterate over the current list of titles.
   // If the title was available last week, hide it.
   var showNewTitles = function() {
+    console.log('hiding all old movies');
     var title_els = titleEls(),
       current_titles = {},
       title = '';
@@ -89,6 +90,19 @@
     localStorage.setItem(storageKey(thisMonday()), JSON.stringify(current_titles));
   };
 
+  // For testing, set last week's list of cached movies
+  // to be a random subset of this week's movies.
+  setRandomLastWeek = function() {
+    var titles = storedTitles(),
+      title, size;
+    size = 0; for(title in titles) { size += 1; }
+    console.log("starting with "+size+" titles");
+    for(title in titles) { if(Math.random() > 0.75) delete(titles[title]); }
+    size = 0; for(title in titles) { size += 1; }
+    console.log('stored '+size+' titles to '+storageKey(lastMonday()));
+    localStorage.setItem(storageKey(lastMonday()), JSON.stringify(titles));
+  };
+
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       console.log((sender.tab ?
@@ -102,5 +116,6 @@
   );
 
   setTimeout(updateThisWeekTitles, 1000);
+  //setTimeout(setRandomLastWeek, 2000);
 
 })();
