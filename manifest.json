@@ -12,7 +12,15 @@
     "default_icon": "icon-clock.png",
     "default_title" : "See HBO Now New Releases"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://www.hbonow.com/*"],
+      "js": ["new_releases.js"]
+    }
+  ],
   "permissions": [
-    "declarativeContent"
+    "declarativeContent",
+    "tabs",
+    "https://www.hbonow.com/*"
   ]
 }
